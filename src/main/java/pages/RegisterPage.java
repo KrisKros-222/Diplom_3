@@ -81,4 +81,9 @@ public class RegisterPage {
         isErrorMessageDisplayed();
     }
 
+    @Step("")
+    public void toLogInButtonClick() {
+        driver.findElement(TO_LOG_IN_BUTTON).click();
+    }
+
 }

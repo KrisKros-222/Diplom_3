@@ -16,9 +16,9 @@ public class PersonalAccountPage {
         this.driver = driver;
     }
 
-    protected static final By PA_EMAIL = By.className("input pr-6 pl-6 input_type_text input_size_default");
-    private static final By PA_PASSWORD = By.className("input pr-6 pl-6 input_type_password input_size_default");
-    private static final By LOGIN_BUTTON = By.className("button_button__33qZ0 button_button_type_primary__1O7Bx button_button_size_medium__3zxIa");
+    protected static final By PA_EMAIL = By.xpath(".//input[@name='name']");
+    private static final By PA_PASSWORD = By.xpath(".//input[@name='Пароль']");
+    private static final By LOGIN_BUTTON = By.xpath(".//button[text()='Войти']");
     private static final By REGISTER_BUTTON = By.xpath("//*[@id=\"root\"]/div/main/div/div/p[1]/a");
     private static final By RESET_PASSWORD_BUTTON = By.xpath(".//a[text()='Восстановить пароль']");
 
@@ -27,6 +27,38 @@ public class PersonalAccountPage {
         new WebDriverWait(driver,3)
                 .until(ExpectedConditions.visibilityOfElementLocated(REGISTER_BUTTON));
         driver.findElement(REGISTER_BUTTON).click();
+    }
+
+    @Step("")
+    public void inputEmail(String email) {
+        driver.findElement(PA_EMAIL).click();
+        new WebDriverWait(driver,5)
+                .until(ExpectedConditions.visibilityOfElementLocated(PA_EMAIL));
+        driver.findElement(PA_EMAIL).sendKeys(email);
+    }
+
+    @Step("")
+    public void inputPassword(String password) {
+        driver.findElement(PA_PASSWORD).click();
+        new WebDriverWait(driver,5)
+                .until(ExpectedConditions.visibilityOfElementLocated(PA_PASSWORD));
+        driver.findElement(PA_PASSWORD).sendKeys(password);
+    }
+
+    @Step("")
+    public void logInButtonClick() {
+        driver.findElement(LOGIN_BUTTON).click();
+    }
+
+    public void loginFlow(String email, String password) {
+        inputEmail(email);
+        inputPassword(password);
+        logInButtonClick();
+    }
+
+    @Step("")
+    public void resetPasswordButtonClick() {
+        driver.findElement(RESET_PASSWORD_BUTTON).click();
     }
 
 }

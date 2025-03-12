@@ -30,7 +30,11 @@ public class MainPage {
     @Step("Переход в Личный кабинет")
     public void personalAccountClick() {
         driver.findElement(PERSONAL_ACCOUNT).click();
+    }
 
+    @Step("")
+    public void logInButtonClick() {
+        driver.findElement(LOG_IN_BUTTON).click();
     }
 
 
