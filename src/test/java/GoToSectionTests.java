@@ -11,59 +11,63 @@ import pages.PersonalAccountPage;
 
 public class GoToSectionTests {
     private static final String URL = "https://stellarburgers.nomoreparties.site/";
-    WebDriver driver = new ChromeDriver();
+    WebDriver driver;
 
-    MainPage mainPage = new MainPage(driver);
-    PersonalAccountPage persAccPage = new PersonalAccountPage(driver);
+    MainPage mainPage;
+    PersonalAccountPage persAccPage;
 
     @Before
     public void before() {
+        //System.setProperty("webdriver.chrome.driver","C:\\Program Files\\WebDriver\\bin\\yandexdriver-win64\\yandexdriver.exe");
+        driver = new ChromeDriver();
+        mainPage = new MainPage(driver);
+        persAccPage = new PersonalAccountPage(driver);
         driver.get(URL);
     }
 
     @Test
-    @DisplayName("переход по клику на «Личный кабинет».")
-    @Description("")
+    @DisplayName("Переход по клику на «Личный кабинет».")
+    @Description("При клике на кнопку Личный кабинет происходит переход в ЛК")
     public void goToPersonalAccount() {
         mainPage.personalAccountClick();
         Assert.assertTrue(persAccPage.isPageDisplayed());
     }
 
     @Test
-    @DisplayName("переход по клику на «Конструктор»")
-    @Description("")
+    @DisplayName("Переход по клику на «Конструктор»")
+    @Description("При нажатии на кнопку Конструктор происходит переход к конструктору бургеров")
     public void goToConstructor() {
         mainPage.personalAccountClick();
         Assert.assertTrue(mainPage.isConstructorDisplayed());
     }
 
     @Test
-    @DisplayName("переход по клику и на логотип Stellar Burgers")
-    @Description("")
+    @DisplayName("Переход по клику на логотип Stellar Burgers")
+    @Description("При нажатии на логотип происходит переход на главную страницу")
     public void goToLogo() {
         mainPage.personalAccountClick();
         Assert.assertTrue(mainPage.isLogoWork());
     }
 
     @Test
-    @DisplayName("переходы к разделу «Булки»")
-    @Description("")
+    @DisplayName("Переход к разделу «Булки»")
+    @Description("При нажатии на раздел «Булки» отображаются доступные булочки")
     public void goToBuns() {
         mainPage.fillingClick();
         Assert.assertTrue(mainPage.isBunsElementDisplayed());
     }
 
     @Test
-    @DisplayName("переходы к разделу «Соусы»")
-    @Description("")
+    @DisplayName("Переход к разделу «Соусы»")
+    @Description("При нажатии на раздел «Соусы» отображаются доступные соусы")
     public void goToSauce() {
         mainPage.fillingClick();
         Assert.assertTrue(mainPage.isSauceElementDisplayed());
     }
 
     @Test
-    @DisplayName("переходы к разделу «Начинки»")
-    @Description("")
+    @DisplayName("Переход к разделу «Начинки»")
+    @Description("При нажатии на раздел «Начинки» отображаются доступные начинки")
     public void goToFilling() {
         mainPage.fillingClick();
         Assert.assertTrue(mainPage.isFillingElementDisplayed());

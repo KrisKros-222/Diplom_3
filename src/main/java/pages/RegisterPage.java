@@ -21,7 +21,7 @@ public class RegisterPage {
     public static final By TO_LOG_IN_BUTTON = By.className("Auth_link__1fOlj");
     private static final By ERROR_MESSAGE = By.xpath(".//p[@class = 'input__error text_type_main-default']");
 
-    @Step("")
+    @Step("Вводим имя в поле Name")
     public void inputName(String name) {
         driver.findElement(REG_NAME).click();
         new WebDriverWait(driver,5)
@@ -29,7 +29,7 @@ public class RegisterPage {
         driver.findElement(REG_NAME).sendKeys(name);
     }
 
-    @Step("")
+    @Step("Вводим почту в поле Email")
     public void inputEmail(String email) {
         driver.findElement(REG_EMAIL).click();
         new WebDriverWait(driver,5)
@@ -37,7 +37,7 @@ public class RegisterPage {
         driver.findElement(REG_EMAIL).sendKeys(email);
     }
 
-    @Step("")
+    @Step("Вводим пароль в поле Пароль")
     public void inputPassword(String password) {
         driver.findElement(REG_PASSWORD).click();
         new WebDriverWait(driver,5)
@@ -45,7 +45,7 @@ public class RegisterPage {
         driver.findElement(REG_PASSWORD).sendKeys(password);
     }
 
-    @Step("")
+    @Step("Вводим некорректный пароль")
     public void inputIncorrectPassword(String wrongPass) {
         driver.findElement(REG_PASSWORD).click();
         new WebDriverWait(driver,5)
@@ -53,12 +53,12 @@ public class RegisterPage {
         driver.findElement(REG_PASSWORD).sendKeys(wrongPass);
     }
 
-    @Step("")
+    @Step("Нажимаем на кнопку Зарегистрироваться")
     public void regButtonClick() {
         driver.findElement(TO_REGISTER_BUTTON).click();
     }
 
-    @Step
+    @Step("Проверка появления сообщения о некорректном пароле")
     public boolean isErrorMessageDisplayed() {
         WebElement error = new WebDriverWait(driver,5)
                 .until(ExpectedConditions.visibilityOfElementLocated(ERROR_MESSAGE));
@@ -80,7 +80,7 @@ public class RegisterPage {
         isErrorMessageDisplayed();
     }
 
-    @Step("")
+    @Step("Нажатие на кнопку Войти")
     public void toLogInButtonClick() {
         driver.findElement(TO_LOG_IN_BUTTON).click();
     }

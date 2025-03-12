@@ -28,7 +28,7 @@ public class PersonalAccountPage {
         driver.findElement(REGISTER_BUTTON).click();
     }
 
-    @Step("")
+    @Step("Ввод почты в поле Email")
     public void inputEmail(String email) {
         driver.findElement(PA_EMAIL).click();
         new WebDriverWait(driver,5)
@@ -36,7 +36,7 @@ public class PersonalAccountPage {
         driver.findElement(PA_EMAIL).sendKeys(email);
     }
 
-    @Step("")
+    @Step("Ввод пароля в поле Пароль")
     public void inputPassword(String password) {
         driver.findElement(PA_PASSWORD).click();
         new WebDriverWait(driver,5)
@@ -44,7 +44,7 @@ public class PersonalAccountPage {
         driver.findElement(PA_PASSWORD).sendKeys(password);
     }
 
-    @Step("")
+    @Step("Нажатие на кнопку Войти")
     public void logInButtonClick() {
         driver.findElement(LOGIN_BUTTON).click();
     }
@@ -55,19 +55,19 @@ public class PersonalAccountPage {
         logInButtonClick();
     }
 
-    @Step("")
+    @Step("Нажатие на кнопку Восстановление пароля")
     public void resetPasswordButtonClick() {
         driver.findElement(RESET_PASSWORD_BUTTON).click();
     }
 
-    @Step("")
+    @Step("Нажатие на кнопку Выйти")
     public void logOutButtonClick() {
         new WebDriverWait(driver,5)
                 .until(ExpectedConditions.visibilityOfElementLocated(LOG_OUT_BUTTON));
         driver.findElement(LOG_OUT_BUTTON);
     }
 
-    @Step("")
+    @Step("Проверка отображения Личного кабинета")
     public boolean isPageDisplayed() {
         WebElement emailField = new WebDriverWait(driver,5)
                 .until(ExpectedConditions.visibilityOfElementLocated(PA_EMAIL));

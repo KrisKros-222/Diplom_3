@@ -13,14 +13,21 @@ import pages.RegisterPage;
 
 public class RegistrationTests {
     private static final String URL = "https://stellarburgers.nomoreparties.site/";
-    WebDriver driver = new ChromeDriver();
 
-    MainPage mainPage = new MainPage(driver);
-    PersonalAccountPage persAccPage = new PersonalAccountPage(driver);
-    RegisterPage register = new RegisterPage(driver);
+    WebDriver driver;
+    MainPage mainPage;
+    PersonalAccountPage persAccPage;
+    RegisterPage register;
 
     @Before
     public void before() {
+        //System.setProperty("webdriver.chrome.driver","C:\\Program Files\\WebDriver\\bin\\yandexdriver-win64\\yandexdriver.exe");
+        driver = new ChromeDriver();
+
+        mainPage = new MainPage(driver);
+        persAccPage = new PersonalAccountPage(driver);
+        register = new RegisterPage(driver);
+
         driver.get(URL);
         mainPage.personalAccountClick();
         persAccPage.registerButtonClick();
@@ -28,14 +35,14 @@ public class RegistrationTests {
 
     @Test
     @DisplayName("Успешная регистрация")
-    @Description("")
+    @Description("Для успешной регистрации нужно заполнить все обязательные поля и нажать на Зарегистрироваться")
     public void successfulRegistration() {
         register.fillRegForm("Vasya","VVV678@yandex.ru","56983892");
     }
 
     @Test
-    @DisplayName("")
-    @Description("")
+    @DisplayName("Появлении ошибки при вводе некорректного пароля")
+    @Description("Ввести в поле Пароль значение длиной менее 6 символов")
     public void registrationWithIncorrectPassword() {
         register.wrongRegistration("Vasya","VVV678@yandex.ru","111");
         Assert.assertTrue(register.isErrorMessageDisplayed());
@@ -45,5 +52,4 @@ public class RegistrationTests {
     public void tearDown(){
         driver.quit();
     }
-
 }

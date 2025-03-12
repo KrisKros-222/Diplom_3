@@ -15,7 +15,7 @@ public class ResetPasswordPage {
     public static final By TO_RESET_BUTTON = By.className("button_button__33qZ0 button_button_type_primary__1O7Bx button_button_size_medium__3zxIa");
     public static final By TO_LOG_IN = By.className("Auth_link__1fOlj");
 
-    @Step("")
+    @Step("Нажатие на кнопку Войти")
     public void loginButtonClick() {
         driver.findElement(TO_LOG_IN).click();
     }

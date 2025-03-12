@@ -26,27 +26,27 @@ public class MainPage {
     private static final By FILLING = By.xpath(".//span[text()='Начинки']");
     private static final By FILLING_ELEMENT = By.xpath(".//img[@alt='Мясо бессмертных моллюсков Protostomia']");
 
-    @Step("Переход в Личный кабинет")
+    @Step("Нажатие на кнопку Личный кабинет")
     public void personalAccountClick() {
         driver.findElement(PERSONAL_ACCOUNT).click();
     }
 
-    @Step("")
+    @Step("Нажатие на кнопку Войти в аккаунт")
     public void logInButtonClick() {
         driver.findElement(LOG_IN_BUTTON).click();
     }
 
-    @Step("")
+    @Step("Нажатие на кнопку Конструктор")
     public void constructorButtonClick() {
         driver.findElement(CONSTRUCTOR).click();
     }
 
-    @Step("")
+    @Step("Нажатие на логотип")
     public void logoClick() {
         driver.findElement(LOGO).click();
     }
 
-    @Step("")
+    @Step("Проверка перехода при нажатии на Конструктор")
     public boolean isConstructorDisplayed() {
         constructorButtonClick();
         WebElement constructor = new WebDriverWait(driver,5)
@@ -54,7 +54,7 @@ public class MainPage {
         return constructor.isDisplayed();
     }
 
-    @Step("")
+    @Step("Проверка перехода при нажатии на логотип")
     public boolean isLogoWork() {
         logoClick();
         WebElement constructor = new WebDriverWait(driver,5)
@@ -62,22 +62,22 @@ public class MainPage {
         return constructor.isDisplayed();
     }
 
-    @Step
+    @Step("Нажатие на раздел Булочки")
     public void bunsClick(){
         driver.findElement(BUNS).click();
     }
 
-    @Step
+    @Step("Нажатие на раздел Соусы")
     public void sauceClick(){
         driver.findElement(SAUCE).click();
     }
 
-    @Step
+    @Step("Нажатие на раздел Начинки")
     public void fillingClick(){
         driver.findElement(FILLING).click();
     }
 
-    @Step("")
+    @Step("Проверка отображения элемента из раздела Булочки")
     public boolean isBunsElementDisplayed() {
         bunsClick();
         WebElement element = new WebDriverWait(driver,5)
@@ -85,7 +85,7 @@ public class MainPage {
         return element.isDisplayed();
     }
 
-    @Step("")
+    @Step("Проверка отображения элемента из раздела Соусы")
     public boolean isSauceElementDisplayed() {
         sauceClick();
         WebElement element = new WebDriverWait(driver,5)
@@ -93,7 +93,7 @@ public class MainPage {
         return element.isDisplayed();
     }
 
-    @Step("")
+    @Step("Проверка отображения элемента из раздела Начинки")
     public boolean isFillingElementDisplayed() {
         fillingClick();
         WebElement element = new WebDriverWait(driver,5)
