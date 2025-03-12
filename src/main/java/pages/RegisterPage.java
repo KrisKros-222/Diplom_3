@@ -14,7 +14,6 @@ public class RegisterPage {
         this.driver = driver;
     }
 
-    private static final By REGISTRATION_FORM = By.className("Auth_form__3qKeq mb-20");
     public static final By REG_NAME = By.xpath("//*[@id=\"root\"]/div/main/div/form/fieldset[1]/div/div/input");
     public static final By REG_EMAIL = By.cssSelector("#root > div > main > div > form > fieldset:nth-child(2) > div > div > input");
     public static final By REG_PASSWORD = By.xpath(".//input[@type = 'password']");

@@ -3,11 +3,9 @@ package pages;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import static pages.RegisterPage.REG_EMAIL;
-import static pages.RegisterPage.REG_PASSWORD;
 
 public class PersonalAccountPage {
     private WebDriver driver;
@@ -67,6 +65,13 @@ public class PersonalAccountPage {
         new WebDriverWait(driver,5)
                 .until(ExpectedConditions.visibilityOfElementLocated(LOG_OUT_BUTTON));
         driver.findElement(LOG_OUT_BUTTON);
+    }
+
+    @Step("")
+    public boolean isPageDisplayed() {
+        WebElement emailField = new WebDriverWait(driver,5)
+                .until(ExpectedConditions.visibilityOfElementLocated(PA_EMAIL));
+        return emailField.isDisplayed();
     }
 
 }

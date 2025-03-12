@@ -2,7 +2,6 @@ package api;
 
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
-import static org.hamcrest.Matchers.is;
 
 import static io.restassured.RestAssured.given;
 
