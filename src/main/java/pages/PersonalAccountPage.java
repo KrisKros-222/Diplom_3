@@ -17,10 +17,11 @@ public class PersonalAccountPage {
     }
 
     protected static final By PA_EMAIL = By.xpath(".//input[@name='name']");
-    private static final By PA_PASSWORD = By.xpath(".//input[@name='Пароль']");
+    private static final By PA_PASSWORD = By.xpath(".//input[@type='password']");
     private static final By LOGIN_BUTTON = By.xpath(".//button[text()='Войти']");
     private static final By REGISTER_BUTTON = By.xpath("//*[@id=\"root\"]/div/main/div/div/p[1]/a");
     private static final By RESET_PASSWORD_BUTTON = By.xpath(".//a[text()='Восстановить пароль']");
+    private static final By LOG_OUT_BUTTON = By.xpath(".//button[@type='button']");
 
     @Step("Переход на страницу регистрации")
     public void registerButtonClick() {
@@ -59,6 +60,13 @@ public class PersonalAccountPage {
     @Step("")
     public void resetPasswordButtonClick() {
         driver.findElement(RESET_PASSWORD_BUTTON).click();
+    }
+
+    @Step("")
+    public void logOutButtonClick() {
+        new WebDriverWait(driver,5)
+                .until(ExpectedConditions.visibilityOfElementLocated(LOG_OUT_BUTTON));
+        driver.findElement(LOG_OUT_BUTTON);
     }
 
 }

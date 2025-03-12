@@ -10,10 +10,11 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import pages.MainPage;
 import pages.PersonalAccountPage;
 import pages.RegisterPage;
+import pages.ResetPasswordPage;
 
 public class LogInTests {
     private static final String URL = "https://stellarburgers.nomoreparties.site/";
-    private String email = "kjkj@yandex.ru";
+    private String email = "kjkjk@yandex.ru";
     private String password = "555656";
     WebDriver driver = new ChromeDriver();
 
@@ -23,6 +24,7 @@ public class LogInTests {
     MainPage mainPage = new MainPage(driver);
     PersonalAccountPage persAccPage = new PersonalAccountPage(driver);
     RegisterPage regPage = new RegisterPage(driver);
+    ResetPasswordPage resetPage = new ResetPasswordPage(driver);
 
     @Before
     public void before() {
@@ -59,11 +61,13 @@ public class LogInTests {
     @Description("")
     public void resetPasswordLogIn() {
         mainPage.personalAccountClick();
+        persAccPage.resetPasswordButtonClick();
+        resetPage.loginButtonClick();
     }
 
     @After
     public void after() {
-        persAccPage.resetPasswordButtonClick();
+        persAccPage.loginFlow(email,password);
         user.getTokenAndDeleteUser(creation);
         driver.quit();
     }
