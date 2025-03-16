@@ -1,5 +1,6 @@
 package pages;
 
+import com.github.javafaker.Faker;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -7,12 +8,20 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import static pages.PersonalAccountPage.PA_EMAIL;
+
 public class RegisterPage {
     private WebDriver driver;
 
     public RegisterPage(WebDriver driver) {
         this.driver = driver;
     }
+
+    Faker faker = new Faker();
+    private String email = faker.internet().emailAddress();
+    private String password = faker.internet().password(6,8);
+    private String name = faker.name().firstName();
+    private String WrongPassword = faker.internet().password(2,5);
 
     public static final By REG_NAME = By.xpath("//*[@id=\"root\"]/div/main/div/form/fieldset[1]/div/div/input");
     public static final By REG_EMAIL = By.cssSelector("#root > div > main > div > form > fieldset:nth-child(2) > div > div > input");
@@ -22,7 +31,7 @@ public class RegisterPage {
     private static final By ERROR_MESSAGE = By.xpath(".//p[@class = 'input__error text_type_main-default']");
 
     @Step("Вводим имя в поле Name")
-    public void inputName(String name) {
+    public void inputName() {
         driver.findElement(REG_NAME).click();
         new WebDriverWait(driver,5)
                 .until(ExpectedConditions.visibilityOfElementLocated(REG_NAME));
@@ -30,7 +39,7 @@ public class RegisterPage {
     }
 
     @Step("Вводим почту в поле Email")
-    public void inputEmail(String email) {
+    public void inputEmail() {
         driver.findElement(REG_EMAIL).click();
         new WebDriverWait(driver,5)
                 .until(ExpectedConditions.visibilityOfElementLocated(REG_EMAIL));
@@ -38,7 +47,7 @@ public class RegisterPage {
     }
 
     @Step("Вводим пароль в поле Пароль")
-    public void inputPassword(String password) {
+    public void inputPassword() {
         driver.findElement(REG_PASSWORD).click();
         new WebDriverWait(driver,5)
                 .until(ExpectedConditions.visibilityOfElementLocated(REG_PASSWORD));
@@ -46,11 +55,11 @@ public class RegisterPage {
     }
 
     @Step("Вводим некорректный пароль")
-    public void inputIncorrectPassword(String wrongPass) {
+    public void inputIncorrectPassword() {
         driver.findElement(REG_PASSWORD).click();
         new WebDriverWait(driver,5)
                 .until(ExpectedConditions.visibilityOfElementLocated(REG_PASSWORD));
-        driver.findElement(REG_PASSWORD).sendKeys(wrongPass);
+        driver.findElement(REG_PASSWORD).sendKeys(WrongPassword);
     }
 
     @Step("Нажимаем на кнопку Зарегистрироваться")
@@ -65,19 +74,26 @@ public class RegisterPage {
         return error.isDisplayed();
     }
 
-    public void fillRegForm(String name, String email, String password) {
-        inputName(name);
-        inputEmail(email);
-        inputPassword(password);
+    public void fillRegForm() {
+        inputName();
+        inputEmail();
+        inputPassword();
         regButtonClick();
     }
 
-    public void wrongRegistration(String name, String email, String wrongPass) {
-        inputName(name);
-        inputEmail(email);
-        inputIncorrectPassword(wrongPass);
+    public void wrongRegistration() {
+        inputName();
+        inputEmail();
+        inputIncorrectPassword();
         regButtonClick();
         isErrorMessageDisplayed();
+    }
+
+    @Step("Проверяем переход в ЛК после успешной регистрации")
+    public boolean isPersonalAccountAppear() {
+        WebElement account = new WebDriverWait(driver,5)
+                .until(ExpectedConditions.visibilityOfElementLocated(PA_EMAIL));
+        return account.isDisplayed();
     }
 
     @Step("Нажатие на кнопку Войти")

@@ -1,5 +1,6 @@
 package api;
 
+import com.github.javafaker.Faker;
 import io.qameta.allure.Step;
 import io.restassured.response.Response;
 
@@ -10,12 +11,25 @@ public class UserSteps {
     private static final String USER_CREATION_API = "/api/auth/register";
     private static final String DELETE_USER = "/api/auth/user";
 
+    Faker faker = new Faker();
+    private String email = faker.internet().emailAddress();
+    private String password = faker.internet().password(6,8);
+    private String name = faker.name().firstName();
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
     public UserSteps(String baseURI) {
         this.baseURI = baseURI;
     }
 
     @Step("Отправляем POST запрос на ручку /api/auth/register")
-    public Response createUser(String email, String password, String name) {
+    public Response createUser() {
         UserData user = new UserData(email, password, name);
         Response creation = given()
                 .baseUri(baseURI)

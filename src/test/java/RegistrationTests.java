@@ -5,24 +5,21 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-import pages.MainPage;
-import pages.PersonalAccountPage;
-import pages.RegisterPage;
+import pages.*;
 
 public class RegistrationTests {
     private static final String URL = "https://stellarburgers.nomoreparties.site/";
 
-    WebDriver driver;
+    private WebDriver driver;
     MainPage mainPage;
     PersonalAccountPage persAccPage;
     RegisterPage register;
 
     @Before
     public void before() {
-        //System.setProperty("webdriver.chrome.driver","C:\\Program Files\\WebDriver\\bin\\yandexdriver-win64\\yandexdriver.exe");
-        driver = new ChromeDriver();
+        String browser = System.getProperty("browser","chrome");
+        driver = DriverFactory.getDriver(browser);
 
         mainPage = new MainPage(driver);
         persAccPage = new PersonalAccountPage(driver);
@@ -36,15 +33,16 @@ public class RegistrationTests {
     @Test
     @DisplayName("Успешная регистрация")
     @Description("Для успешной регистрации нужно заполнить все обязательные поля и нажать на Зарегистрироваться")
-    public void successfulRegistration() {
-        register.fillRegForm("Vasya","VVV678@yandex.ru","56983892");
+    public void successfulRegistrationTest() {
+        register.fillRegForm();
+        Assert.assertTrue(register.isPersonalAccountAppear());
     }
 
     @Test
     @DisplayName("Появлении ошибки при вводе некорректного пароля")
     @Description("Ввести в поле Пароль значение длиной менее 6 символов")
-    public void registrationWithIncorrectPassword() {
-        register.wrongRegistration("Vasya","VVV678@yandex.ru","111");
+    public void registrationWithIncorrectPasswordTest() {
+        register.wrongRegistration();
         Assert.assertTrue(register.isErrorMessageDisplayed());
     }
 

@@ -48,7 +48,6 @@ public class MainPage {
 
     @Step("Проверка перехода при нажатии на Конструктор")
     public boolean isConstructorDisplayed() {
-        constructorButtonClick();
         WebElement constructor = new WebDriverWait(driver,5)
                 .until(ExpectedConditions.visibilityOfElementLocated(BURGER_CONSTRUCTOR));
         return constructor.isDisplayed();

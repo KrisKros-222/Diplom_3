@@ -5,21 +5,20 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import pages.MainPage;
-import pages.PersonalAccountPage;
+import pages.*;
 
 public class GoToSectionTests {
     private static final String URL = "https://stellarburgers.nomoreparties.site/";
-    WebDriver driver;
+    private WebDriver driver;
 
     MainPage mainPage;
     PersonalAccountPage persAccPage;
 
     @Before
     public void before() {
-        //System.setProperty("webdriver.chrome.driver","C:\\Program Files\\WebDriver\\bin\\yandexdriver-win64\\yandexdriver.exe");
-        driver = new ChromeDriver();
+        String browser = System.getProperty("browser","chrome");
+        driver = DriverFactory.getDriver(browser);
+
         mainPage = new MainPage(driver);
         persAccPage = new PersonalAccountPage(driver);
         driver.get(URL);
@@ -28,7 +27,7 @@ public class GoToSectionTests {
     @Test
     @DisplayName("Переход по клику на «Личный кабинет».")
     @Description("При клике на кнопку Личный кабинет происходит переход в ЛК")
-    public void goToPersonalAccount() {
+    public void goToPersonalAccountTest() {
         mainPage.personalAccountClick();
         Assert.assertTrue(persAccPage.isPageDisplayed());
     }
@@ -36,15 +35,16 @@ public class GoToSectionTests {
     @Test
     @DisplayName("Переход по клику на «Конструктор»")
     @Description("При нажатии на кнопку Конструктор происходит переход к конструктору бургеров")
-    public void goToConstructor() {
+    public void goToConstructorTest() {
         mainPage.personalAccountClick();
+        mainPage.constructorButtonClick();
         Assert.assertTrue(mainPage.isConstructorDisplayed());
     }
 
     @Test
     @DisplayName("Переход по клику на логотип Stellar Burgers")
     @Description("При нажатии на логотип происходит переход на главную страницу")
-    public void goToLogo() {
+    public void goToLogoTest() {
         mainPage.personalAccountClick();
         Assert.assertTrue(mainPage.isLogoWork());
     }
@@ -52,7 +52,7 @@ public class GoToSectionTests {
     @Test
     @DisplayName("Переход к разделу «Булки»")
     @Description("При нажатии на раздел «Булки» отображаются доступные булочки")
-    public void goToBuns() {
+    public void goToBunsTest() {
         mainPage.fillingClick();
         Assert.assertTrue(mainPage.isBunsElementDisplayed());
     }
@@ -60,7 +60,7 @@ public class GoToSectionTests {
     @Test
     @DisplayName("Переход к разделу «Соусы»")
     @Description("При нажатии на раздел «Соусы» отображаются доступные соусы")
-    public void goToSauce() {
+    public void goToSauceTest() {
         mainPage.fillingClick();
         Assert.assertTrue(mainPage.isSauceElementDisplayed());
     }
@@ -68,7 +68,7 @@ public class GoToSectionTests {
     @Test
     @DisplayName("Переход к разделу «Начинки»")
     @Description("При нажатии на раздел «Начинки» отображаются доступные начинки")
-    public void goToFilling() {
+    public void goToFillingTest() {
         mainPage.fillingClick();
         Assert.assertTrue(mainPage.isFillingElementDisplayed());
     }

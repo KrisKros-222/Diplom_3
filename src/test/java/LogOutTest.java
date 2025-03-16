@@ -1,21 +1,19 @@
-import api.UserSteps;
+import api.*;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.MainPage;
-import pages.PersonalAccountPage;
+import pages.*;
 
 public class LogOutTest {
     private static final String URL = "https://stellarburgers.nomoreparties.site/";
-    private String email = "kjkjo@yandex.ru";
-    private String password = "5556756";
 
-    WebDriver driver;
+    private WebDriver driver;
     private UserSteps user;
     private Response creation;
     MainPage mainPage;
@@ -23,14 +21,14 @@ public class LogOutTest {
 
     @Before
     public void before() {
-        //System.setProperty("webdriver.chrome.driver","C:\\Program Files\\WebDriver\\bin\\yandexdriver-win64\\yandexdriver.exe");
-        driver = new ChromeDriver();
+        String browser = System.getProperty("browser","chrome");
+        driver = DriverFactory.getDriver(browser);
 
         mainPage = new MainPage(driver);
         persAccPage = new PersonalAccountPage(driver);
 
         user = new UserSteps(URL);
-        creation = user.createUser(email,password,"Sasha");
+        creation = user.createUser();
         driver.get(URL);
     }
 
@@ -39,9 +37,10 @@ public class LogOutTest {
     @Description("Необходимо войти в аккаунт и перейти в ЛК, там нажать на кнопку Выйти")
     public void logOutTest() {
         mainPage.personalAccountClick();
-        persAccPage.loginFlow(email,password);
+        persAccPage.loginFlow(user.getEmail(), user.getPassword());
         mainPage.personalAccountClick();
         persAccPage.logOutButtonClick();
+        Assert.assertTrue(persAccPage.isPageDisplayed());
     }
 
     @After

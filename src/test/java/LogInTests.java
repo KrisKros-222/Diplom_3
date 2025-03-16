@@ -1,23 +1,18 @@
-import api.UserSteps;
+import api.*;
 import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import io.restassured.response.Response;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import pages.MainPage;
-import pages.PersonalAccountPage;
-import pages.RegisterPage;
-import pages.ResetPasswordPage;
+import pages.*;
 
 public class LogInTests {
     private static final String URL = "https://stellarburgers.nomoreparties.site/";
-    private String email = "kjkjoj@yandex.ru";
-    private String password = "5558656";
 
-    WebDriver driver;
+    private WebDriver driver;
     private UserSteps user;
     private Response creation;
     MainPage mainPage;
@@ -27,8 +22,8 @@ public class LogInTests {
 
     @Before
     public void before() {
-        //System.setProperty("webdriver.chrome.driver","C:\\Program Files\\WebDriver\\bin\\yandexdriver-win64\\yandexdriver.exe");
-        driver = new ChromeDriver();
+        String browser = System.getProperty("browser","chrome");
+        driver = DriverFactory.getDriver(browser);
 
         mainPage = new MainPage(driver);
         persAccPage = new PersonalAccountPage(driver);
@@ -36,45 +31,52 @@ public class LogInTests {
         resetPage = new ResetPasswordPage(driver);
 
         user = new UserSteps(URL);
-        creation = user.createUser(email,password,"Sasha");
+        creation = user.createUser();
         driver.get(URL);
     }
 
     @Test
     @DisplayName("Вход по кнопке «Войти в аккаунт» на главной странице")
     @Description("При нажатии происходит переход в ЛК, в котором можно ввести данные аккаунта")
-    public void mainPageLogIn() {
+    public void mainPageLogInTest() {
         mainPage.logInButtonClick();
+        persAccPage.loginFlow(user.getEmail(), user.getPassword());
+        Assert.assertTrue(mainPage.isConstructorDisplayed());
     }
 
     @Test
     @DisplayName("Вход через кнопку «Личный кабинет»")
     @Description("При нажатии происходит переход в ЛК, в котором можно ввести данные аккаунта")
-    public void personalAccountLogIn() {
+    public void personalAccountLogInTest() {
         mainPage.personalAccountClick();
+        persAccPage.loginFlow(user.getEmail(), user.getPassword());
+        Assert.assertTrue(mainPage.isConstructorDisplayed());
     }
 
     @Test
     @DisplayName("Вход через кнопку в форме регистрации,")
     @Description("При нажатии происходит переход в ЛК, в котором можно ввести данные аккаунта")
-    public void registrationFormLogIn() {
+    public void registrationFormLogInTest() {
         mainPage.personalAccountClick();
         persAccPage.registerButtonClick();
         regPage.toLogInButtonClick();
+        persAccPage.loginFlow(user.getEmail(), user.getPassword());
+        Assert.assertTrue(mainPage.isConstructorDisplayed());
     }
 
     @Test
     @DisplayName("Вход через кнопку в форме восстановления пароля")
     @Description("При нажатии происходит переход в ЛК, в котором можно ввести данные аккаунта")
-    public void resetPasswordLogIn() {
+    public void resetPasswordLogInTest() {
         mainPage.personalAccountClick();
         persAccPage.resetPasswordButtonClick();
         resetPage.loginButtonClick();
+        persAccPage.loginFlow(user.getEmail(), user.getPassword());
+        Assert.assertTrue(mainPage.isConstructorDisplayed());
     }
 
     @After
     public void after() {
-        persAccPage.loginFlow(email,password);
         user.getTokenAndDeleteUser(creation);
         driver.quit();
     }
