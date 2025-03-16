@@ -17,7 +17,7 @@ public class PersonalAccountPage {
     protected static final By PA_EMAIL = By.xpath(".//input[@name='name']");
     private static final By PA_PASSWORD = By.xpath(".//input[@type='password']");
     private static final By LOGIN_BUTTON = By.xpath(".//button[text()='Войти']");
-    private static final By REGISTER_BUTTON = By.xpath("//*[@id=\"root\"]/div/main/div/div/p[1]/a");
+    private static final By REGISTER_BUTTON = By.xpath(".//div/p[1]/a");
     private static final By RESET_PASSWORD_BUTTON = By.xpath(".//a[text()='Восстановить пароль']");
     private static final By LOG_OUT_BUTTON = By.xpath(".//button[@type='button']");
 

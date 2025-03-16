@@ -23,8 +23,8 @@ public class RegisterPage {
     private String name = faker.name().firstName();
     private String WrongPassword = faker.internet().password(2,5);
 
-    public static final By REG_NAME = By.xpath("//*[@id=\"root\"]/div/main/div/form/fieldset[1]/div/div/input");
-    public static final By REG_EMAIL = By.cssSelector("#root > div > main > div > form > fieldset:nth-child(2) > div > div > input");
+    public static final By REG_NAME = By.xpath(".//fieldset[1]/div/div/input");
+    public static final By REG_EMAIL = By.xpath(".//fieldset[2]/div/div/input");
     public static final By REG_PASSWORD = By.xpath(".//input[@type = 'password']");
     public static final By TO_REGISTER_BUTTON = By.xpath(".//button[text()='Зарегистрироваться']");
     public static final By TO_LOG_IN_BUTTON = By.className("Auth_link__1fOlj");

@@ -16,8 +16,8 @@ public class MainPage {
 
     private static final By CONSTRUCTOR = By.xpath(".//p[text()='Конструктор']");
     private static final By LOGO = By.className("AppHeader_header__logo__2D0X2");
-    private static final By PERSONAL_ACCOUNT = By.xpath("//*[@id=\"root\"]/div/header/nav/a");
-    private static final By LOG_IN_BUTTON = By.xpath(".//button[text()='Войти в аккаунт']");
+    private static final By PERSONAL_ACCOUNT = By.xpath(".//p[@class='AppHeader_header__linkText__3q_va ml-2' and text()='Личный Кабинет']");
+    private static final By LOG_IN_BUTTON = By.xpath(".//button[contains(@class,'button_button__33qZ0 ')]");
     private static final By BURGER_CONSTRUCTOR = By.className("BurgerIngredients_ingredients__1N8v2");
     private static final By BUNS = By.xpath(".//span[text()='Булки']");
     private static final By BUNS_ELEMENT = By.xpath(".//img[@alt='Флюоресцентная булка R2-D3']");
